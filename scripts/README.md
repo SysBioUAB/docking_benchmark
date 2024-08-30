@@ -73,18 +73,23 @@ Generate input files by following the "preparing input files" steps in their [re
 
 To run the model:
 
-```python predict.py --mode alphafold --input_csv data/input_files/alphaflow/benchmark.csv --msa_dir data/input_files/alphaflow/MSA/ --weights alphaflow_md_base_202402.pt --samples 250 --outpdb data/output_files/alphaflow/outputs
+```python
+python predict.py --mode alphafold --input_csv data/input_files/alphaflow/benchmark.csv --msa_dir data/input_files/alphaflow/MSA/ --weights alphaflow_md_base_202402.pt --samples 250 --outpdb data/output_files/alphaflow/outputs
 ```
 Split all the 250 ensembles for each protein:
-```for protein in data/output_files/alphaflow/outputs/*.pdb; do mkdir data/output_files/alphaflow/ensembles/$(basename $protein .pdb); csplit -z $protein '/^MODEL/' '{*}'; for file in data/output_files/alphaflow/ensembles/xx*; do mv "$file" data/output_files/alphaflow/ensembles/$(basename $protein .pdb)/"${file}.pdb"; done ; done
+```bash
+for protein in data/output_files/alphaflow/outputs/*.pdb; do mkdir data/output_files/alphaflow/ensembles/$(basename $protein .pdb); csplit -z $protein '/^MODEL/' '{*}'; for file in data/output_files/alphaflow/ensembles/xx*; do mv "$file" data/output_files/alphaflow/ensembles/$(basename $protein .pdb)/"${file}.pdb"; done ; done
 ```
 Generate files with the list of ensembles (used by maxcluster):
-```for ensemble in data/output_files/alphaflow/ensembles/*; do for protein in $ensemble/*; do echo $protein >> data/output_files/alphaflow/maxcluster_input/$(basename $ensemble .pdb).list; done ; done
+```bash
+for ensemble in data/output_files/alphaflow/ensembles/*; do for protein in $ensemble/*; do echo $protein >> data/output_files/alphaflow/maxcluster_input/$(basename $ensemble .pdb).list; done ; done
 ```
 Run maxcluster to make all-versus-all RMSD matrix and near neighbour clustering:
-```for protein in data/output_files/alphaflow/maxcluster_input/; do ./maxcluster64bit -l $(basename $protein).list -rmsd -C 5 >> data/output_files/alphaflow/maxcluster_output/$(basename $protein)_clusters.out; done
+```bash
+for protein in data/output_files/alphaflow/maxcluster_input/; do ./maxcluster64bit -l $(basename $protein).list -rmsd -C 5 >> data/output_files/alphaflow/maxcluster_output/$(basename $protein)_clusters.out; done
 ```
 Select top 10 most representative clusters:
-```for clusters in data/output_files/alphaflow/maxcluster_output/*.out; do for i in $(cat $clusters | grep INFO | grep Cluster -A10 | head -n 11 | tail -n10 | cut -d':' -f3 | awk '{print $4}'); do cp $i data/output_files/alphaflow/ensembles/$(basename $clusters _clusters.out)/top10/; done; done
+```bash
+for clusters in data/output_files/alphaflow/maxcluster_output/*.out; do for i in $(cat $clusters | grep INFO | grep Cluster -A10 | head -n 11 | tail -n10 | cut -d':' -f3 | awk '{print $4}'); do cp $i data/output_files/alphaflow/ensembles/$(basename $clusters _clusters.out)/top10/; done; done
 ```
 
