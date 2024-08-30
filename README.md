@@ -1,4 +1,4 @@
-![Workflow diagram](overview.tif)
+![Workflow diagram](overview.png)
 
 # Advances in Docking Protocols for PPIs: Insights from AlphaFold2 and Molecular Dynamics Refinement
 
@@ -12,7 +12,7 @@ Molecular dynamics (MD) simulations and ensemble generation algorithms like Alph
 
 The input and output datasets used in this study are publicly available and can be downloaded from Zenodo. Please follow the instructions below to access the data:
 
-1. Visit the Zenodo repository for this project: [Zenodo Dataset Link](#) *(Replace with actual link)*
+1. Visit the Zenodo repository for this project: [Zenodo Dataset Link](#)
 2. Download the dataset input/output files, which include:
    - **Input protein and ligand structures**: Prepared protein and ligand files
    - **AlphaFlow input files**: Input CSV and MSAs
@@ -63,7 +63,7 @@ Protein quality was assessed using the following tools:
 To reproduce the results or use the docking tools, follow these steps:
 
 1. **Install Dependencies**: Ensure all required third-party tools and dependencies are installed. See the [Third-Party Tools Overview](#third-party-tools-overview) section for detailed instructions.
-2. **Download datasets**: Download all necessary files from Zenodo: [Zenodo Dataset Link](#) *(Replace with actual link)*
+2. **Download datasets**: Download all necessary files from Zenodo: [Zenodo Dataset Link](#) 
 3. **Run Scripts**: Execute the scripts provided in `scripts/` to run the docking protocols, protein analysis, MD analysis, reproducing figures... More details can be found in `scripts/`.
 
 

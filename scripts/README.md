@@ -14,20 +14,22 @@ To run AutoDock Vina 1.2.5, use the `run_vina.sh` script. The input files requir
 
 Example:
 ```bash
-bash run_vina.sh [-p] data/input_files/Protein_structures/Vina/PDB/ [-m] PDB [-o] data/output_files/outputs_vina/ [-c] data/input_files/interface_center.txt [-v] tools/vina_1.2.5_linux [-l] data/input_files/Ligands/ligands_vina
+bash run_vina.sh -p data/input_files/Protein_structures/Vina/PDB/ -m PDB -o data/output_files/outputs_vina/ -c data/input_files/interface_center.txt -v tools/vina_1.2.5_linux -l data/input_files/Ligands/ligands_vina
+```
 
 ### Gnina
 To run Gnina 1.0, use the run_gnina.sh script. The input files are similar to AutoDock Vina but can use PDB for proteins and SDF for ligands. 
 
 Example:
 ```bash
-bash run_gnina.sh [-p] data/input_files/Protein_structures/Gnina_tankbind_diffdock/PDB/ [-m] PDB [-o] data/output_files/outputs_gnina/ [-c] data/input_files/interface_center.txt [-v] tools/gnina [-l] data/input_files/Ligands/ligands/ligands_benchmark_1E50.sdf
+bash run_gnina.sh -p data/input_files/Protein_structures/Gnina_tankbind_diffdock/PDB/ -m PDB -o data/output_files/outputs_gnina/ [-c] data/input_files/interface_center.txt -v tools/gnina -l data/input_files/Ligands/ligands/ligands_benchmark_1E50.sdf
+```
 
 ### EquiBind
 Use the multiligand_inference.py script from the EquiBind repository to infer multiple ligands from a single SDF file and a single receptor.
 Example:
 ```python multiligand_inference.py -o data/output_files/outputs_equibind/ -r data/input_files/Protein_structures/Gnina_tankbind_diffdock/PDB/1e50A.pdb -l data/input_files/Ligands/ligands/ligands_benchmark_1E50.sdf
-
+```
 ### DiffDock
 TFollow the protocol in the [DiffDock README](https://github.com/gcorso/DiffDock) for inference with default search space options. 
 
@@ -69,17 +71,17 @@ Generate input files by following the "preparing input files" steps in their [re
 To run the model:
 
 ```python predict.py --mode alphafold --input_csv data/input_files/alphaflow/benchmark.csv --msa_dir data/input_files/alphaflow/MSA/ --weights alphaflow_md_base_202402.pt --samples 250 --outpdb data/output_files/alphaflow/outputs
-
+```
 Split all the 250 ensembles for each protein:
 ```for protein in data/output_files/alphaflow/outputs/*.pdb; do mkdir data/output_files/alphaflow/ensembles/$(basename $protein .pdb); csplit -z $protein '/^MODEL/' '{*}'; for file in data/output_files/alphaflow/ensembles/xx*; do mv "$file" data/output_files/alphaflow/ensembles/$(basename $protein .pdb)/"${file}.pdb"; done ; done
-
+```
 Generate files with the list of ensembles (used by maxcluster):
 ```for ensemble in data/output_files/alphaflow/ensembles/*; do for protein in $ensemble/*; do echo $protein >> data/output_files/alphaflow/maxcluster_input/$(basename $ensemble .pdb).list; done ; done
-
+```
 Run maxcluster to make all-versus-all RMSD matrix and near neighbour clustering:
 ```for protein in data/output_files/alphaflow/maxcluster_input/; do ./maxcluster64bit -l $(basename $protein).list -rmsd -C 5 >> data/output_files/alphaflow/maxcluster_output/$(basename $protein)_clusters.out; done
-
+```
 Select top 10 most representative clusters:
 ```for clusters in data/output_files/alphaflow/maxcluster_output/*.out; do for i in $(cat $clusters | grep INFO | grep Cluster -A10 | head -n 11 | tail -n10 | cut -d':' -f3 | awk '{print $4}'); do cp $i data/output_files/alphaflow/ensembles/$(basename $clusters _clusters.out)/top10/; done; done
-
+```
 
