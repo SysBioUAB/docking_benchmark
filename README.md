@@ -1,6 +1,6 @@
-![Workflow diagram](overview.png)
-
 # Advances in Docking Protocols for PPIs: Insights from AlphaFold2 and Molecular Dynamics Refinement
+
+![Workflow diagram](overview.png)
 
 ## Introduction
 
