@@ -27,11 +27,14 @@ bash run_gnina.sh -p data/input_files/Protein_structures/Gnina_tankbind_diffdock
 
 ### EquiBind
 Use the multiligand_inference.py script from the EquiBind repository to infer multiple ligands from a single SDF file and a single receptor.
+
 Example:
-```python multiligand_inference.py -o data/output_files/outputs_equibind/ -r data/input_files/Protein_structures/Gnina_tankbind_diffdock/PDB/1e50A.pdb -l data/input_files/Ligands/ligands/ligands_benchmark_1E50.sdf
+```python
+python multiligand_inference.py -o data/output_files/outputs_equibind/ -r data/input_files/Protein_structures/Gnina_tankbind_diffdock/PDB/1e50A.pdb -l data/input_files/Ligands/ligands/ligands_benchmark_1E50.sdf
 ```
+
 ### DiffDock
-TFollow the protocol in the [DiffDock README](https://github.com/gcorso/DiffDock) for inference with default search space options. 
+Follow the protocol in the [DiffDock README](https://github.com/gcorso/DiffDock) for inference with default search space options. 
 
 ### TankBind
 Refer to the prediction_example_using_PDB_6hd6.ipynb notebook in their [repository](https://github.com/luwei0917/TankBind) to predict poses using TankBind in two modes:
