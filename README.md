@@ -13,7 +13,7 @@ Molecular dynamics (MD) simulations and ensemble generation algorithms like Alph
 The input and output datasets used in this study are publicly available and can be downloaded from Zenodo. Please follow the instructions below to access the data:
 
 1. Visit the Zenodo repository for this project: [Zenodo Dataset Link](https://zenodo.org/records/13757872)
-2. Download the dataset input/output files, which include:
+2. Download the dataset input/output files (28,3 GB compressed file and ~75GB uncompressed), which include:
    - **Input protein and ligand structures**: Prepared protein and ligand files
    - **AlphaFlow input files**: Input CSV and MSAs
    - **Figure datasets**: Datasets to reproduce the figures used in the paper
