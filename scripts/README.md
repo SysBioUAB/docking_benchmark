@@ -1,6 +1,6 @@
 # Scripts
 
-Here you can find the scripts and protocols used for docking, protein analysis, molecular dynamics (MD) simulations, and AlphaFlow predictions. All input files required to run the analysis and the resulting outputs can be downloaded from [Zenodo](#).
+Here you can find the scripts and protocols used for docking, protein analysis, molecular dynamics (MD) simulations, and AlphaFlow predictions. All input files required to run the analysis and the resulting outputs can be downloaded from [Zenodo](https://zenodo.org/records/13757872).
 
 ## Docking
 
@@ -14,7 +14,7 @@ To run AutoDock Vina 1.2.5, use the `run_vina.sh` script. The input files requir
 
 Example:
 ```bash
-bash run_vina.sh -p data/input_files/Protein_structures/Vina/PDB/ -m PDB -o data/output_files/outputs_vina/ -c data/input_files/interface_center.txt -v tools/vina_1.2.5_linux -l data/input_files/Ligands/ligands_vina
+bash run_vina.sh -p data/input_files/Protein_structures/Vina/PDB/ -m PDB -o data/output_files/docking/outputs_vina/ -c data/input_files/interface_center.txt -v tools/vina_1.2.5_linux -l data/input_files/Ligands/ligands_vina
 ```
 
 ### Gnina
@@ -22,7 +22,7 @@ To run Gnina 1.0, use the run_gnina.sh script. The input files are similar to Au
 
 Example:
 ```bash
-bash run_gnina.sh -p data/input_files/Protein_structures/Gnina_tankbind_diffdock/PDB/ -m PDB -o data/output_files/outputs_gnina/ [-c] data/input_files/interface_center.txt -v tools/gnina -l data/input_files/Ligands/ligands/ligands_benchmark_1E50.sdf
+bash run_gnina.sh -p data/input_files/Protein_structures/Gnina_tankbind_diffdock/PDB/ -m PDB -o data/output_files/docking/gnina/ [-c] data/input_files/interface_center.txt -v tools/gnina -l data/input_files/Ligands/ligands/ligands_benchmark_1E50.sdf
 ```
 
 ### EquiBind
@@ -30,7 +30,7 @@ Use the multiligand_inference.py script from the EquiBind repository to infer mu
 
 Example:
 ```python
-python multiligand_inference.py -o data/output_files/outputs_equibind/ -r data/input_files/Protein_structures/Gnina_tankbind_diffdock/PDB/1e50A.pdb -l data/input_files/Ligands/ligands/ligands_benchmark_1E50.sdf
+python multiligand_inference.py -o data/output_files/docking/equibind/ -r data/input_files/Protein_structures/Gnina_tankbind_diffdock/PDB/1e50A.pdb -l data/input_files/Ligands/ligands/ligands_benchmark_1E50.sdf
 ```
 
 ### DiffDock
